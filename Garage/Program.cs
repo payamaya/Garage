@@ -6,7 +6,6 @@
         {
 
             ParkingLot parkingLot = new ParkingLot(3, 3);
-
             parkingLot.ParkedCar(0, 0, new Vehicle(4, "Red", "ABC123"));
             parkingLot.ParkedCar(0, 0, new Vehicle(4, "Green", "abc345"));
 
