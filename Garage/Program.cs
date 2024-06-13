@@ -16,12 +16,13 @@ namespace Garage
             while (true)
             {
                 Console.WriteLine();
-                Console.WriteLine("1.)List all parked vehicles");
+                Console.WriteLine("1.)Check if parking spot is empty");
                 Console.WriteLine("2.)List vehicle types and how many of each are in the garage");
                 Console.WriteLine("3.)Display ParkingLot in the garage");
                 Console.WriteLine("4.)Add Vehicle To ParkingLot");
-                Console.WriteLine("5.)TotalVehicleParked");
-                Console.WriteLine("6.)Find a specific vehicle by registration number. It should work with both ABC123 and Abc123 or AbC123.");
+                Console.WriteLine("5.)Remove Vehicle From ParkingLot");
+                Console.WriteLine("6.)TotalVehicleParked");
+                Console.WriteLine("7.)Remained ParkingSpot");
                 Console.Write("Choose an option: ");
 
                 string input = Console.ReadLine()!;
@@ -42,9 +43,13 @@ namespace Garage
                         AddVehicleToParkingLot(parkingLot);
                         break; 
                     case "5":
+                        // Call method to add a vehicle to the parking lot
+                        RemoveVehicleToParkingLot(parkingLot);
+                        break; 
+                    case "6":
                         TotalParkedVehicle(parkingLot);
                         break;  
-                    case "6":
+                    case "7":
                         RemainedParkingSpot(parkingLot);
                         break; 
                     case "0":
@@ -124,10 +129,21 @@ namespace Garage
                 return;
             }
 
+            Console.Write("Enter row number to park the vehicle: ");
+            if(!int.TryParse(Console.ReadLine(),out int row))
+            {
+                return ;
+            }
+            Console.Write("Enter col number to park the vehicle: ");
+            if (!int.TryParse(Console.ReadLine(),out int col))
+            {
+                return;
+            }
+
             Vehicle newVehicle = new Vehicle(numberOfWheels, color, regNumber);
 
             // Find an available parking spot and park the car
-            if (parkingLot.AddVehicle(newVehicle))
+            if (parkingLot.AddVehicle(newVehicle,row,col))
             {
                 Console.WriteLine($"Successfully parked the car: {newVehicle}");
             }
@@ -135,6 +151,23 @@ namespace Garage
             {
                 Console.WriteLine("Parking lot is full. Cannot park the car.");
             }
+        } 
+        // Method to add a vehicle to the parking lot
+        static void RemoveVehicleToParkingLot(ParkingLot parkingLot)
+        {
+            Console.Write("Enter registration number: ");
+            string regNumber = Console.ReadLine()!.Trim().ToUpper();
+
+            //Remove vehicle
+            if(parkingLot.RemoveVehicle(regNumber))
+            {
+                Console.WriteLine($"Successfully removed the vehicle with the registration number : {regNumber}");
+            }
+            else
+            {
+                Console.WriteLine("No vehicle with that registration number found in the parking lot");
+            }
+           
         }
 
 

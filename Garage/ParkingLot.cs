@@ -28,30 +28,46 @@ namespace Garage
 
         public int totalSpots => spots.GetLength(0) * spots.GetLength(1);
 
-        public bool AddVehicle(Vehicle vehicle)
+        public bool AddVehicle(Vehicle vehicle, int row, int col)
         {
+            if (IsRegistrationNumberExist(vehicle.RegistrationNumber))
+            {
+                return false;
+            }
+            if (spots[row, col] == null)
+            {
+                spots[row, col] = vehicle;
+                return true;
+            }
+
+            return false;
+        } 
+        public bool RemoveVehicle(string regNumber)
+        {
+            string normalizedRegNumber = regNumber.ToUpper();
+
             for (int row = 0; row < spots.GetLength(0); row++)
             {
                 for (int col = 0; col < spots.GetLength(1); col++)
                 {
-                    if (spots[row, col] == null)
+                    if (spots[row, col] is not null && spots[row, col].RegistrationNumber.ToUpper() == normalizedRegNumber)
                     {
-                        spots[row, col] = vehicle;
+                        spots[row, col] = null;
                         return true;
                     }
                 }
             }
-
             return false;
         }
-
-        public bool IsRegistrationNumberExist(string regNumber)
+        //Unik regsiteration number
+        public bool IsRegistrationNumberExist(string? regNumber)
         {
+            string normalizedRegNumber = regNumber.ToUpper();
             for (int row = 0; row < spots.GetLength(0); row++)
             {
                 for(int col = 0;col < spots.GetLength(1);col++)
                 {
-                    if (spots[row,col]?.RegistrationNumber?.Equals(regNumber, StringComparison.OrdinalIgnoreCase) == true)
+                    if (spots[row,col] is not null && spots[row,col]?.RegistrationNumber?.ToUpper()==normalizedRegNumber)
                     {
                         return true;
                     }
