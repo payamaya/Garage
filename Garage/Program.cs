@@ -108,6 +108,11 @@ namespace Garage
         {
             Console.Write("Enter registration number: ");
             string regNumber = Console.ReadLine()!.Trim();
+            if(parkingLot.IsRegistrationNumberExist(regNumber))
+            {
+                Console.WriteLine("A vehicle with this registration number already exist in the parking lot");
+                return ;    
+            }
 
             Console.Write("Enter color: ");
             string color = Console.ReadLine()!.Trim();

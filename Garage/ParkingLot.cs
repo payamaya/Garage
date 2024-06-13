@@ -27,6 +27,7 @@ namespace Garage
            }*/
 
         public int totalSpots => spots.GetLength(0) * spots.GetLength(1);
+
         public bool AddVehicle(Vehicle vehicle)
         {
             for (int row = 0; row < spots.GetLength(0); row++)
@@ -43,6 +44,22 @@ namespace Garage
 
             return false;
         }
+
+        public bool IsRegistrationNumberExist(string regNumber)
+        {
+            for (int row = 0; row < spots.GetLength(0); row++)
+            {
+                for(int col = 0;col < spots.GetLength(1);col++)
+                {
+                    if (spots[row,col]?.RegistrationNumber?.Equals(regNumber, StringComparison.OrdinalIgnoreCase) == true)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         public Vehicle GetCar(int row, int col)
         {
             return spots[row, col];
@@ -100,9 +117,6 @@ namespace Garage
                 return false;
             }
         }
-
-    
-   
 
         public int CountVehicles()
         {
