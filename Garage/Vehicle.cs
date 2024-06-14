@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Garage
+﻿namespace Garage
 {
     public class Vehicle
     {
@@ -21,5 +15,6 @@ namespace Garage
         }
         public override string ToString()=> $"Registration Number: {RegistrationNumber}, Color:{Color} , Number of Wheels: {WheelsNumber}";
     }
+
       
 }

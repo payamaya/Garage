@@ -1,5 +1,6 @@
 ﻿
 using System.Drawing;
+using System.Text.RegularExpressions;
 
 namespace Garage
 {
@@ -7,10 +8,14 @@ namespace Garage
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Build your own parking by adding the amount of rows and columns");
+            Console.Write("Enter number of rows for the parkings lot: ");
+            int rows = int.Parse(Console.ReadLine()!);
+            Console.Write("Enter number of cols for the parkings lot: ");
+            int cols = int.Parse(Console.ReadLine()!);
 
-            ParkingLot parkingLot = new ParkingLot(10, 10);
-        /*    parkingLot.ParkedCar(0, 0, new Vehicle(4, "Red", "ABC123"));
-            parkingLot.ParkedCar(2, 0, new Vehicle(4, "Green", "abc345"));*/
+            ParkingLot parkingLot = new ParkingLot(rows, cols);
+
 
 
             while (true)
@@ -21,9 +26,11 @@ namespace Garage
                 Console.WriteLine("3.)Display ParkingLot in the garage");
                 Console.WriteLine("4.)Add Vehicle To ParkingLot");
                 Console.WriteLine("5.)Remove Vehicle From ParkingLot");
-                Console.WriteLine("6.)TotalVehicleParked");
+                Console.WriteLine("6.)Total Vehicle Parked 'Lista samtliga parkerade fordon'");
                 Console.WriteLine("7.)Remained ParkingSpot");
-                Console.Write("Choose an option: ");
+                Console.WriteLine("8.)Find Vehicle 'Hitta ett specifikt fordon via registreringsnumret. Det ska gå fungera med både\r\nABC123 samt Abc123 eller AbC123.'");
+                Console.WriteLine("9.)List Vehicles Sorted by Color");
+                Console.Write("\nChoose an option: ");
 
                 string input = Console.ReadLine()!;
 
@@ -32,26 +39,30 @@ namespace Garage
                     case "1":
                         GetSpecificParkingSpotInfo(parkingLot);
                         break;
-                        case "2":
-                        CountNumberOfCars(parkingLot); 
+                    case "2":
+                        CountNumberOfCars(parkingLot);
                         break;
                     case "3":
                         parkingLot.DisplayParkingLot();
                         break;
-                    case "4":
-                        // Call method to add a vehicle to the parking lot
+                    case "4":              
                         AddVehicleToParkingLot(parkingLot);
-                        break; 
+                        break;
                     case "5":
-                        // Call method to add a vehicle to the parking lot
                         RemoveVehicleToParkingLot(parkingLot);
-                        break; 
+                        break;
                     case "6":
                         TotalParkedVehicle(parkingLot);
-                        break;  
+                        break;
                     case "7":
                         RemainedParkingSpot(parkingLot);
-                        break; 
+                        break;
+                    case "8":
+                        FindVehicleByRegistrationNumber(parkingLot);
+                        break;
+                    case "9":
+                        ListVehiclesByColor(parkingLot);
+                        break;
                     case "0":
                         Console.WriteLine("Exiting program...");
                         Environment.Exit(0);
@@ -62,7 +73,7 @@ namespace Garage
                 }
 
             }
-           
+
         }
         // Method to get information about a specific parking spot
         private static void GetSpecificParkingSpotInfo(ParkingLot parkingLot)
@@ -89,17 +100,19 @@ namespace Garage
             {
                 Console.WriteLine($"No car parked at spot [{row},{col}].");
             }
-           /* // Count the number of cars parked
-            int numberOfCars = parkingLot.CountVehicles();
-            Console.WriteLine($"Number of cars parked: {numberOfCars}");*/
+            /* // Count the number of cars parked
+             int numberOfCars = parkingLot.CountVehicles();
+             Console.WriteLine($"Number of cars parked: {numberOfCars}");*/
         }
-        private static void TotalParkedVehicle(ParkingLot vehicle) {
-         
+        private static void TotalParkedVehicle(ParkingLot vehicle)
+        {
+
             // Count the number of cars parked
             int numberOfCars = vehicle.CountVehicles();
             Console.WriteLine($"Number of cars parked: {numberOfCars}");
-        } 
-        private static void RemainedParkingSpot(ParkingLot parkingLot) {
+        }
+        private static void RemainedParkingSpot(ParkingLot parkingLot)
+        {
 
             int totalSpots = parkingLot.totalSpots;
             int numberOfCars = parkingLot.CountVehicles();
@@ -107,20 +120,44 @@ namespace Garage
             Console.WriteLine($"Remaining spots in the parking {remainingSpots}");
 
         }
+        // Other methods like GetSpecificParkingSpotInfo, CountNumberOfCars, AddVehicleToParkingLot, RemoveVehicleFromParkingLot...
+        static void FindVehicleByRegistrationNumber(ParkingLot parkingLot)
+        {
+            Console.Write("Enter registration number: ");
+            string regNumber = Console.ReadLine()!.Trim().ToUpper();
 
+            Vehicle vehicle = parkingLot.FindVehicleByRegistrationNumber(regNumber);
+            if (vehicle != null)
+            {
+                Console.WriteLine($"\u001b[31mVehicle found:\u001b[0m \u001b[32m{vehicle}\u001b[0m");
+            }
+            else
+            {
+                Console.WriteLine("No vehicle with that registration number found in the parking lot.");
+            }
+        }
         // Method to add a vehicle to the parking lot
         static void AddVehicleToParkingLot(ParkingLot parkingLot)
         {
             Console.Write("Enter registration number: ");
-            string regNumber = Console.ReadLine()!.Trim();
-            if(parkingLot.IsRegistrationNumberExist(regNumber))
+            string regNumber = Console.ReadLine()!.Trim().ToUpper();
+
+            // Validate the registration number to ensure it contains only alphabetic characters and numbers
+            if (!Regex.IsMatch(regNumber, @"^[a-zA-Z0-9]+$") ||
+                !Regex.IsMatch(regNumber, @"([a-zA-Z].*){3,}") ||  // Contains at least one letter
+                !Regex.IsMatch(regNumber, @"\d"))         // Contains at least one number
             {
-                Console.WriteLine("A vehicle with this registration number already exist in the parking lot");
-                return ;    
+                Console.WriteLine("\u001b[31mInvalid registration number. Please enter a registration number with both alphabetic characters and numbers.\u001b[0m");
+                return;
+            }
+            if (parkingLot.IsRegistrationNumberExist(regNumber))
+            {
+                Console.WriteLine("\u001b[31mA vehicle with this registration number already exist in the parking lot\u001b[0m");
+                return;
             }
 
             Console.Write("Enter color: ");
-            string color = Console.ReadLine()!.Trim();
+            string color = Console.ReadLine()!.Trim().ToUpper();
 
             Console.Write("Enter vehicle number of wheels: ");
             if (!int.TryParse(Console.ReadLine(), out int numberOfWheels))
@@ -130,12 +167,12 @@ namespace Garage
             }
 
             Console.Write("Enter row number to park the vehicle: ");
-            if(!int.TryParse(Console.ReadLine(),out int row))
+            if (!int.TryParse(Console.ReadLine(), out int row))
             {
-                return ;
+                return;
             }
             Console.Write("Enter col number to park the vehicle: ");
-            if (!int.TryParse(Console.ReadLine(),out int col))
+            if (!int.TryParse(Console.ReadLine(), out int col))
             {
                 return;
             }
@@ -143,23 +180,24 @@ namespace Garage
             Vehicle newVehicle = new Vehicle(numberOfWheels, color, regNumber);
 
             // Find an available parking spot and park the car
-            if (parkingLot.AddVehicle(newVehicle,row,col))
+            if (parkingLot.AddVehicle(newVehicle, row, col))
             {
                 Console.WriteLine($"Successfully parked the car: {newVehicle}");
+                /*   Console.WriteLine(newVehicle.ToString());*/
             }
             else
             {
-                Console.WriteLine("Parking lot is full. Cannot park the car.");
+                Console.WriteLine("Parking spot is already occupied or invalid.");
             }
-        } 
-        // Method to add a vehicle to the parking lot
+        }
+        // Method to remove a vehicle to the parking lot
         static void RemoveVehicleToParkingLot(ParkingLot parkingLot)
         {
             Console.Write("Enter registration number: ");
             string regNumber = Console.ReadLine()!.Trim().ToUpper();
 
             //Remove vehicle
-            if(parkingLot.RemoveVehicle(regNumber))
+            if (parkingLot.RemoveVehicle(regNumber))
             {
                 Console.WriteLine($"Successfully removed the vehicle with the registration number : {regNumber}");
             }
@@ -167,17 +205,36 @@ namespace Garage
             {
                 Console.WriteLine("No vehicle with that registration number found in the parking lot");
             }
-           
+
         }
-
-
 
         private static void CountNumberOfCars(ParkingLot parkingLot)
         {
             int numberOfCars = parkingLot.CountVehicles();
             Console.WriteLine($"Number of cars parked: {numberOfCars}");
         }
-            
+
+        static void ListVehiclesByColor(ParkingLot parkingLot)
+        {
+            Console.Write("Enter color to search for: ");
+            string color = Console.ReadLine()!.Trim();
+
+            List<Vehicle> vehicles = parkingLot.GetVehiclesByColor(color);
+            if (vehicles.Count > 0)
+            {
+                Console.WriteLine($"Vehicles with color '{color}':");
+                foreach (var vehicle in vehicles)
+                {
+                    Console.WriteLine(vehicle);
+                }
+            }
+            else
+            {
+                Console.WriteLine($"No vehicles found with color '{color}'.");
+            }
+        }
+
+
+
     }
-     
 }
