@@ -1,5 +1,6 @@
 ﻿namespace Garage
 {
+    // Derived class subClass
     public class Bus : Vehicle
     {
         public int NumberOfSeats { get; set; }

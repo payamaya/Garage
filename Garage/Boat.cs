@@ -1,5 +1,6 @@
 ﻿namespace Garage
 {
+    // Derived class subClass
     public class Boat:Vehicle
     {
         public int BoatLength { get; set; }

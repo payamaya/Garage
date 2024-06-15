@@ -1,41 +1,43 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.ConstrainedExecution;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace Garage
 {
-    public class ParkingLot
+    public class Garage<T>:IEnumerable<T> where T : Vehicle
     {
         //Create a parking lot with 2 dimension array[,]
-        private Vehicle[,] _spots;
+        private T[,] _spots;
+        private List<T> _vehicles;
         /*    private int capacity;*/
 
         /*     public int Capacity => capacity;*/
 
-        public ParkingLot(int rows, int cols)
+        public Garage(int rows, int cols)
         {
-            _spots = new Vehicle[rows, cols];
+            _spots = new T[rows, cols];
+            _vehicles = new List<T>();
             /*      capacity = rows * cols;*/
         }
 
+        public int TotalSpots => _spots.GetLength(0) * _spots.GetLength(1);
 
-        public int totalSpots => _spots.GetLength(0) * _spots.GetLength(1);
 
-        public Vehicle GetCar(int row, int col)
+        public T GetCar(int row, int col)
         {
             return _spots[row, col];
         }
-        public Vehicle FindVehicleByRegistrationNumber(string regNumber)
+
+        public T FindVehicleByRegistrationNumber(string regNumber)
         {
             string normalizedRegNumber = regNumber.ToUpper();
             for (int row = 0; row < _spots.GetLength(0); row++)
             {
                 for (int col = 0; col < _spots.GetLength(1); col++)
                 {
-                    if (_spots[row, col] != null && _spots[row, col]?.RegistrationNumber?.ToUpper() == normalizedRegNumber)
+                    if (_spots[row, col] != null && _spots[row, col].RegistrationNumber?.ToUpper() == normalizedRegNumber)
                     {
                         return _spots[row, col];
                     }
@@ -43,7 +45,32 @@ namespace Garage
             }
             return null;
         }
-        public bool AddVehicle(Vehicle vehicle, int row, int col)
+        public bool AddVehicleToSpot(T vehicle, int row, int col)
+        {
+            if (row < 0 || row >= _spots.GetLength(0) || col < 0 || col >= _spots.GetLength(1))
+            {
+                Console.WriteLine($"Invalid parking spot. Row and column numbers must be within valid range (0 - {_spots.GetLength(0) - 1}, 0 - {_spots.GetLength(1) - 1}).");
+                return false;
+            }
+
+            if (_spots[row, col] != null)
+            {
+                Console.WriteLine($"Parking spot at [{row},{col}] is already occupied.");
+                return false;
+            }
+
+            if (_vehicles.Any(v => v.RegistrationNumber == vehicle.RegistrationNumber))
+            {
+                Console.WriteLine("A vehicle with this registration number already exists in the garage.");
+                return false;
+            }
+
+            _spots[row, col] = vehicle;
+            _vehicles.Add(vehicle);
+            return true;
+        }
+
+        public bool AddVehicle(T vehicle, int row, int col)
         {
             if (IsRegistrationNumberExist(vehicle.RegistrationNumber))
             {
@@ -67,13 +94,31 @@ namespace Garage
                 Console.WriteLine($"Parking spot at [{row},{col}] is already occupied.");
                 return false;
             }
-
+            if(vehicle is Bus)
+            {
+                if (row + 1 >= numRows || _spots[row, col + 1] != null && col + 1 >= numCols || _spots[row, col + 1] != null)
+                {
+                    Console.WriteLine($"Not enough space for the Bus at [{row},{col}].");
+                    return false;
+                }
+            }
+            else
+            {
+                // For other vehicles, occupy just one spot
+                _spots[row, col] = vehicle;
+            }
+            // Assign the vehicle to the parking spot(s)
+            _spots[row, col] = vehicle;
+            if (vehicle is Bus)
+            {
+                _spots[row, col + 1] = vehicle; // Occupy the next spot for the Bus
+            }
             // Assign the vehicle to the parking spot
             _spots[row, col] = vehicle;
             return true;
         }
 
-        public bool ParkedCar(Vehicle vehicle, int row, int col)
+        public bool ParkedCar(T vehicle, int row, int col)
         {
             int numRows = _spots.GetLength(0);
             int numCols = _spots.GetLength(1);
@@ -140,23 +185,31 @@ namespace Garage
             {
                 for (int col = 0; col < _spots.GetLength(1); col++)
                 {
-                    string status = (_spots[row, col] == null) ? "[ ]" : GetCarEmoji(_spots[row, col]);
+                    string status = (_spots[row, col] == null) ? "[ ]" : GetVehicleEmoji(_spots[row, col]);
                     Console.Write(status + " ");
                 }
                 Console.WriteLine();
             }
         }
 
-        private string GetCarEmoji(Vehicle vehicle)
+        private string GetVehicleEmoji(T vehicle)
         {
-            return vehicle?.Color?.ToLower() switch
+            return vehicle switch
             {
-                "red" => "[🚗]",
-                "blue" => "[🚙]",
-                "green" => "[🚕]",
-                "yellow" => "[🚖]",
-                "black" => "[🚘]",
-                _ => "[🚗]" // Default emoji if color is not recognized
+                Car car => car.Color.ToLower() switch
+                {
+                    "red" => "[🚗]",
+                    "blue" => "[🚙]",
+                    "green" => "[🚕]",
+                    "yellow" => "[🚖]",
+                    "black" => "[🚘]",
+                    _ => "[🚗]" // Default car emoji
+                },
+                Bus bus => "[🚌]",
+                Boat boat => "[⛵]",
+                Airplane airplane => "[✈️]",
+                Motorcycle motorcycle => "[🏍️]",
+                _ => "[🚗]" // Default emoji if the vehicle type is not recognized
             };
         }
 
@@ -165,7 +218,7 @@ namespace Garage
         {
             int Count = 0;
 
-            foreach (Vehicle vehicle in _spots)
+            foreach (T vehicle in _spots)
             {
                 if (vehicle is not null)
                 {
@@ -175,9 +228,9 @@ namespace Garage
             return Count;
         }
 
-        public List<Vehicle> GetVehiclesByColor(string color)
+        public List<T> GetVehiclesByColor(string color)
         {
-            List<Vehicle> vehicles = new List<Vehicle>();
+            List<T> vehicles = new List<T>();
             for (int row = 0; row < _spots.GetLength(0); row++)
             {
                 for (int col = 0; col < _spots.GetLength(1); col++)
@@ -191,6 +244,14 @@ namespace Garage
             return vehicles;
         }
 
+        public IEnumerator<T> GetEnumerator()
+        {
+            return _vehicles.GetEnumerator();
+        }
 
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }
