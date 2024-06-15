@@ -179,17 +179,58 @@ namespace Garage
 
         public void DisplayParkingLot()
         {
-            Console.WriteLine("Parking Lot Status:");
-            Console.WriteLine();
+            bool isFull = true;
+
+            // Check if the parking lot is full
             for (int row = 0; row < _spots.GetLength(0); row++)
             {
                 for (int col = 0; col < _spots.GetLength(1); col++)
                 {
-                    string status = (_spots[row, col] == null) ? "[ ]" : GetVehicleEmoji(_spots[row, col]);
-                    Console.Write(status + " ");
+                    if (_spots[row, col] == null)
+                    {
+                        isFull = false;
+                        break;
+                    }
                 }
-                Console.WriteLine();
+                if (!isFull)
+                {
+                    break;
+                }
             }
+
+            Console.WriteLine("Parking Lot Status:");
+            Console.WriteLine();
+
+            for (int row = 0; row < _spots.GetLength(0); row++)
+            {
+                for (int col = 0; col < _spots.GetLength(1); col++)
+                {
+                    if (_spots[row, col] == null)
+                    {
+                        // Empty spot with green background
+                        Console.BackgroundColor = ConsoleColor.Green;
+                        Console.Write("|  |");
+                    }
+                    else
+                    {
+                        // Occupied spot with vehicle emoji
+                        string emoji = GetVehicleEmoji(_spots[row, col]);
+                        Console.BackgroundColor = ConsoleColor.Black; // Reset to default background
+                        Console.Write($"{emoji} ");
+                    }
+                }
+                Console.ResetColor(); // Reset after each row
+                Console.WriteLine(); // Move to the next row
+            }
+
+            // Set the background color to red if the parking lot is full
+            if (isFull)
+            {
+                Console.WriteLine("\n\u001b[31mParking Lot is FULL!\u001b[0m"); // Optional message indicating full status
+            }
+
+            // Reset the console colors after displaying the parking lot
+            Console.ResetColor();
         }
 
         private string GetVehicleEmoji(T vehicle)

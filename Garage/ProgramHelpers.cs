@@ -125,34 +125,75 @@ namespace Garage
 
         public static void AddVehicleToParkingLot(Garage<Vehicle> garage)
         {
-            Console.Write("Enter registration number: ");
-            string regNumber = Console.ReadLine()?.Trim().ToUpper();
+            //check if user enter a valid regex regnumber
+            string regNumber = string.Empty;
+            bool isValidRegNumber = false;
 
-            // Validate registration number format
-            if (!Regex.IsMatch(regNumber, @"^[a-zA-Z0-9]+$") ||
-                !Regex.IsMatch(regNumber, @"([a-zA-Z].*){3,}") ||  // Contains at least one letter
-                !Regex.IsMatch(regNumber, @"\d"))         // Contains at least one number
+            do
             {
-                Console.WriteLine("\u001b[31mInvalid registration number. Please enter a registration number with both alphabetic characters and numbers.\u001b[0m");
-                return;
-            }
+                Console.Write("Enter registration number: ");
+                regNumber = Console.ReadLine()?.Trim().ToUpper();
 
-            // Check if registration number already exists
-            if (garage.IsRegistrationNumberExist(regNumber))
+                // Validate registration number format
+                if (!Regex.IsMatch(regNumber, @"^[a-zA-Z0-9]+$") ||
+                    !Regex.IsMatch(regNumber, @"([a-zA-Z].*){3,}") ||  // Contains at least one letter
+                    !Regex.IsMatch(regNumber, @"\d"))         // Contains at least one number
+                {
+                    Console.WriteLine("Invalid registration number. \n\u001b[31mPlease enter a registration number with with at least three alphabetic characters and numbers.\u001b[0m");
+                
+                }
+
+                // Check if registration number already exists
+               else if (garage.IsRegistrationNumberExist(regNumber))
+                {
+                    Console.WriteLine("\u001b[31mA vehicle with this registration number already exists in the parking lot\u001b[0m\n");
+                
+                }
+                else
+                {
+                isValidRegNumber = true;
+                }
+
+            } while (!isValidRegNumber);
+
+            //Check if user enter a string color
+            string color = string.Empty;
+            bool hasColor = false;
+
+            do
             {
-                Console.WriteLine("\u001b[31mA vehicle with this registration number already exists in the parking lot\u001b[0m");
-                return;
-            }
+                Console.Write("Enter color: ");
+                color = Console.ReadLine()?.Trim().ToUpper();
 
-            Console.Write("Enter color: ");
-            string color = Console.ReadLine()?.Trim().ToUpper();
+                if (string.IsNullOrEmpty(color) || color.Length < 3 || !Regex.IsMatch(color, @"^[A-Z]+$"))
+                {
+                    Console.WriteLine("\u001b[34mInvalid input. Please enter a color with at least three alphabetic characters.\u001b[0m\n");
+                }
+                else
+                {
+                    hasColor = true;
+                }
+                
+            } while (!hasColor);
 
-            Console.Write("Enter number of wheels: ");
-            if (!int.TryParse(Console.ReadLine(), out int numberOfWheels))
+            int numberOfWheels = 2;
+            bool isValidNumberOfWheels = false;
+
+            do
             {
-                Console.WriteLine("Invalid input. Please enter a valid number of wheels.");
-                return;
-            }
+                Console.Write("Enter number of wheels (1-12): ");
+                string input = Console.ReadLine()?.Trim();
+
+                if (!int.TryParse(input, out numberOfWheels) || numberOfWheels > 12)
+                {
+                    Console.WriteLine("\u001b[34mInvalid input. Please enter a valid number of wheels (between 1 and 12).\u001b[0m\n");
+                }
+                else
+                {
+                    isValidNumberOfWheels = true;
+                }
+
+            } while (!isValidNumberOfWheels);
 
             // Assuming vehicle type input or logic to determine vehicle type
             Console.Write("Enter vehicle type (Car/Bus/Boat/Airplane/Motorcycle): ");
@@ -173,7 +214,7 @@ namespace Garage
                         Console.WriteLine("Invalid input. Please enter a valid number of seats.");
                         return;
                     }
-                    newVehicle = new Bus(numberOfWheels, color, regNumber, numberOfSeats); 
+                    newVehicle = new Bus(numberOfWheels, color, regNumber, numberOfSeats);
                     break;
                 case "AIRPLANE":
                     Console.Write("Enter number of seats: ");
@@ -194,10 +235,11 @@ namespace Garage
                     newVehicle = new Boat(numberOfWheels, color, regNumber, boatLength);
                     break;
                 case "MOTORCYCLE":
-                 {  Console.Write("Enter number of seats: ");
+                    {
+                        Console.Write("Enter number of seats: ");
                         newVehicle = new Motorcycle();
                     }
-                 
+
                     break;
                 default:
                     Console.WriteLine("Invalid vehicle type. Please enter either 'Car' or 'Bus'.");
