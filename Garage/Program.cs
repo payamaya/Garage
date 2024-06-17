@@ -1,20 +1,27 @@
-﻿namespace Garage
+﻿using Garage.Helpers;
+using Garage.Interface;
+using Garage.Models;
+
+
+namespace Garage
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Build your own parking by adding the amount of rows and columns");
-            Console.Write("Enter number of rows for the parkings lot: ");
-            int rows = int.Parse(Console.ReadLine()!);
-            Console.Write("Enter number of cols for the parkings lot: ");
-            int cols = int.Parse(Console.ReadLine()!);
+            {
+                IConsoleInputHelper inputHelper = new ConsoleInputHelper();
+                GarageInputHandler inputHandler = new GarageInputHandler(inputHelper);
 
-            var garage = new Garage<Vehicle>(rows, cols);
-            ProgramHelpers.DisplayMenu(garage);
-            Console.ReadLine();
+                (int rows, int cols) = inputHandler.GetValidGarageDimensions();
 
+                var garage = new Garage<Vehicle>(rows, cols);
+                DisplayMainMenu.DisplayMenu(garage);
+
+                Console.ReadLine();
+            }
         }
 
+        
     }
 }

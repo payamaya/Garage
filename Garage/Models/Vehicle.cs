@@ -1,8 +1,7 @@
-﻿
-namespace Garage
+﻿namespace Garage.Models
 {
     //Base Class
-    public class Vehicle 
+    public class Vehicle
     {
         // properties
         public int WheelsNumber { get; set; }
@@ -17,11 +16,10 @@ namespace Garage
         }
         public override string ToString() => $"Registration Number: {RegistrationNumber}, Color:{Color} , Number of Wheels: {WheelsNumber}";
 
-        public static implicit operator Vehicle(Motorcycle v)
+        /*public static implicit operator Vehicle(Motorcycle v)
         {
             throw new NotImplementedException();
-        }
+        }*/
     }
-
 
 }

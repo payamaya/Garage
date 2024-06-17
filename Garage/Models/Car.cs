@@ -1,7 +1,7 @@
-﻿namespace Garage
+﻿namespace Garage.Models
 {
     // Derived class subClass
-    public class Car:Vehicle
+    public class Car : Vehicle
     {
         public string FuelType { get; set; }
 
@@ -12,6 +12,6 @@
             }
         }
 
-        public override string ToString() => $"Car - {base.ToString()}, FuelType";
+        public override string ToString() => $"Car - {base.ToString()}, FuelType: {FuelType}";
     }
 }
