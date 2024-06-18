@@ -8,5 +8,6 @@ internal static class CountVehicle
     {
         int numberOfVehicles = garage.CountVehicles();
         Console.WriteLine($"Number of vehicles parked: {numberOfVehicles}");
+     
     }
 }

@@ -6,7 +6,7 @@
     {
         public int CylinderVolume { get; set; }
 
-        public Motorcycle(int wheelsNumber, string color, string registrationNumber, int cylinderVolume) : base(wheelsNumber, color, registrationNumber)
+        public Motorcycle(int wheelsNumber, string color, string registrationNumber, int cylinderVolume) : base(wheelsNumber, color, registrationNumber,VehicleType.Motorcycle)
         {
             CylinderVolume = cylinderVolume;
         }

@@ -13,11 +13,10 @@ namespace Garage
                 IConsoleInputHelper inputHelper = new ConsoleInputHelper();
                 GarageInputHandler inputHandler = new GarageInputHandler(inputHelper);
 
-                (int rows, int cols) = inputHandler.GetValidGarageDimensions();
+                (int maxRows, int maxCols) = inputHandler.GetValidGarageDimensions();
 
-                var garage = new Garage<Vehicle>(rows, cols);
+                var garage = new Garage<Vehicle>(maxRows, maxCols);
                 DisplayMainMenu.DisplayMenu(garage);
-
                 Console.ReadLine();
             }
         }

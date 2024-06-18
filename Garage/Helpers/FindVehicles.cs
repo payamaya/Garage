@@ -13,11 +13,11 @@ namespace Garage.Helprs
             Vehicle foundVehicle = garage.FindVehicleByRegistrationNumber(regNumber)!;
             if (foundVehicle != null)
             {
-                Console.WriteLine($"Vehicle found: {foundVehicle}");
+                Console.WriteLine($"\u001b[34mVehicle found:\u001b[0m {foundVehicle}");
             }
             else
             {
-                Console.WriteLine("No vehicle with that registration number found in the parking lot.");
+                Console.WriteLine("\u001b[32mNo vehicle with that registration number found in the parking lot.\u001b[0m");
             }
         }
     }

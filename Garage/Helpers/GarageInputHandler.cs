@@ -24,21 +24,21 @@ namespace Garage.Helpers
                 rows = _inputHelper.ReadInt("Enter number of rows for the parking lot: ");
                 if (rows <= 0)
                 {
-                    Console.WriteLine("Invalid input. Number of rows must be greater than 0.\nPlease enter a higher number.");
+                    Console.WriteLine("Invalid input. Number of rows must be greater than 0.");
                     continue;
                 }
 
                 cols = _inputHelper.ReadInt("Enter number of columns for the parking lot: ");
                 if (cols <= 0)
                 {
-                    Console.WriteLine("Invalid input. Number of columns must be greater than 0. Please enter a higher number.");
+                    Console.WriteLine("Invalid input. Number of columns must be greater than 0.");
                     continue;
                 }
 
                 isValidInput = true;
             }
 
-                return (rows, cols);
+            return (rows, cols);
         }
     }
 }

@@ -7,14 +7,16 @@ namespace Garage.Helpers
     {
         private const string MenuOptions =
             "1.) Check if parking spot is empty\n" +
-            "2.) List vehicle types and how many of each are in the garage\n" +
+            "2.) Count Number Of Vehicles\n" +
             "3.) Display ParkingLot in the garage\n" +
             "4.) Add Vehicle To ParkingLot\n" +
             "5.) Remove Vehicle From ParkingLot\n" +
             "6.) Total Vehicle Parked 'Lista samtliga parkerade fordon'\n" +
             "7.) Remained ParkingSpot\n" +
-            "8.) Find Vehicle 'Hitta ett specifikt fordon via registreringsnumret.'\n" +
+            "8.) Find Vehicle via registration number.'\n" +
             "9.) List Vehicles Sorted by Color\n" +
+            "10.) List vehicle types and how many of each are in the garage\n" +
+
             "0.) Exit\n";
 
         public static void DisplayMenu(Garage<Vehicle> garage)
@@ -38,7 +40,7 @@ namespace Garage.Helpers
                         garage.DisplayParkingLot();
                         break;
                     case "4":
-                        AddVehiclesToParkingLot.AddVehicleToParkingLot(garage);
+                       AddVehiclesToParkingLot.AddVehicleToParkingLot(garage);
                         break;
                     case "5":
                         RemoveVehicles.RemoveVehicleFromParkingLot(garage);
@@ -54,6 +56,9 @@ namespace Garage.Helpers
                         break;
                     case "9":
                         VehiclesByColors.ListVehiclesByColor(garage);
+                        break;
+                    case "10":
+                        ListVehiclesTypeAndCount.ListVehicleTypesAndCounts(garage);
                         break;
                     case "0":
                         Console.WriteLine("Exiting program...");

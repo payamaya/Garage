@@ -1,4 +1,4 @@
-﻿namespace Garage.Models
+﻿/*namespace Garage.Models
 {
     public enum VehicleType
     {
@@ -9,3 +9,4 @@
         Motorcycle
     }
 }
+*/
