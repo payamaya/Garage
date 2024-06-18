@@ -13,7 +13,7 @@ namespace Garage.Helpers
             "5.) Remove Vehicle From ParkingLot\n" +
             "6.) Total Vehicle Parked 'Lista samtliga parkerade fordon'\n" +
             "7.) Remained ParkingSpot\n" +
-            "8.) Find Vehicle 'Hitta ett specifikt fordon via registreringsnumret. Det ska gå fungera med både\r\nABC123 samt Abc123 eller AbC123.'\n" +
+            "8.) Find Vehicle 'Hitta ett specifikt fordon via registreringsnumret.'\n" +
             "9.) List Vehicles Sorted by Color\n" +
             "0.) Exit\n";
 

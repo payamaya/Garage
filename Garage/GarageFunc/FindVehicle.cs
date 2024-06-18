@@ -1,6 +1,4 @@
-﻿// Garage.FindVehicle.cs (Partial Class)
-
-namespace Garage
+﻿namespace Garage
 {
     public partial class Garage<T>
     {

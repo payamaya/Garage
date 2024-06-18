@@ -18,7 +18,7 @@ namespace Garage
 
         /*     public int Capacity => capacity;*/
 
-        public Garage(int rows=1, int cols = 1)
+        public Garage(int rows = 1, int cols = 1)
         {
             _spots = new T[rows, cols];
             _vehicles = new List<T>();

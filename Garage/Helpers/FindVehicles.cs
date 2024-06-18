@@ -8,9 +8,9 @@ namespace Garage.Helprs
         public static void FindVehicleByRegistrationNumber(Garage<Vehicle> garage)
         {
             Console.Write("Enter registration number: ");
-            string regNumber = Console.ReadLine()?.Trim().ToUpper();
+            string regNumber = Console.ReadLine()?.Trim().ToUpper()!;
 
-            Vehicle foundVehicle = garage.FindVehicleByRegistrationNumber(regNumber);
+            Vehicle foundVehicle = garage.FindVehicleByRegistrationNumber(regNumber)!;
             if (foundVehicle != null)
             {
                 Console.WriteLine($"Vehicle found: {foundVehicle}");

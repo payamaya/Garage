@@ -40,10 +40,10 @@ namespace Garage.Helpers
             } while (!isValidRegNumber);
 
             //Check if user enter a string color
-            string color = string.Empty;
-            bool hasColor = false;
-
-            do
+       /*     string color = string.Empty;*/
+           /* bool hasColor = false;*/
+          string color =  InputHelper.GetColor();
+           /* do
             {
                 Console.Write("Enter color: ");
                 color = Console.ReadLine()?.Trim().ToUpper()!;
@@ -57,7 +57,7 @@ namespace Garage.Helpers
                     hasColor = true;
                 }
 
-            } while (!hasColor);
+            } while (!hasColor);*/
 
             int numberOfWheels = 2;
             bool isValidNumberOfWheels = false;
@@ -100,8 +100,8 @@ namespace Garage.Helpers
             switch (vehicleType)
             {
                 case VehicleType.Car:
-                    Console.Write("Enter fuel type: ");
-                    string fuelType = Console.ReadLine()?.Trim()!;
+
+                    string fuelType = InputHelper.GetFuelType();
                     newVehicle = new Car(numberOfWheels, color, regNumber, fuelType);
                     break;
                 case VehicleType.Bus:
@@ -145,19 +145,28 @@ namespace Garage.Helpers
                     return;
             }
 
-
-            Console.Write("Enter row number to park the vehicle: ");
-            if (!int.TryParse(Console.ReadLine(), out int row))
+            // Prompt user for row number until a valid number is entered
+            int row;
+            while (true)
             {
+                Console.Write("Enter row number to park the vehicle: ");
+                if (int.TryParse(Console.ReadLine(), out row))
+                {
+                    break;
+                }
                 Console.WriteLine("Invalid input. Please enter a valid row number.");
-                return;
             }
 
-            Console.Write("Enter column number to park the vehicle: ");
-            if (!int.TryParse(Console.ReadLine(), out int col))
+            // Prompt user for column number until a valid number is entered
+            int col;
+            while (true)
             {
+                Console.Write("Enter column number to park the vehicle: ");
+                if (int.TryParse(Console.ReadLine(), out col))
+                {
+                    break;
+                }
                 Console.WriteLine("Invalid input. Please enter a valid column number.");
-                return;
             }
 
             // Attempt to add the vehicle to the garage at the specified position
@@ -169,6 +178,8 @@ namespace Garage.Helpers
             {
                 Console.WriteLine("Parking spot is already occupied or invalid.");
             }
+        
         }
+       
     }
 }
