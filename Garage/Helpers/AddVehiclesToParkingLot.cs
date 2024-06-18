@@ -43,7 +43,7 @@ namespace Garage.Helpers
                     break;
 
                 case VehicleType.Motorcycle:
-                  int cylinderVolume= InputHelper.GetCylinderVolume();  
+                  double cylinderVolume= InputHelper.GetCylinderVolume();  
                     newVehicle = new Motorcycle(numberOfWheels, color, regNumber, cylinderVolume);
                     break;
                 default:
@@ -51,10 +51,12 @@ namespace Garage.Helpers
                     return;
             }
 
-
             // Prompt user for row number until a valid number is entered
+    
+            //int col = InputHelper.GetColumn();
+             // Prompt user for row number until a valid number is entered
             int row = InputHelper.GetRow();
-
+            
             // Prompt user for column number until a valid number is entered
             int col = InputHelper.GetColumn();
 

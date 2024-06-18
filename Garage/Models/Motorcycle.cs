@@ -4,12 +4,12 @@
     //ToDo calculation
     public class Motorcycle:Vehicle
     {
-        public int CylinderVolume { get; set; }
+        public double CylinderVolume { get; set; }
 
-        public Motorcycle(int wheelsNumber, string color, string registrationNumber, int cylinderVolume) : base(wheelsNumber, color, registrationNumber,VehicleType.Motorcycle)
+        public Motorcycle(int wheelsNumber, string color, string registrationNumber, double cylinderVolume) : base(wheelsNumber, color, registrationNumber,VehicleType.Motorcycle)
         {
-            CylinderVolume = cylinderVolume;
+            CylinderVolume = (int)cylinderVolume;
         }
-        public override string ToString() => $"Motorcycle -{base.ToString()}, Modal: {CylinderVolume}";
+        public override string ToString() => $"Motorcycle -{base.ToString()}, CylinderVolume: {CylinderVolume}";
     }
 }

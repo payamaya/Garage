@@ -26,10 +26,6 @@
         }
         public override string ToString() => $"Type: {Type} ,Registration Number: {RegistrationNumber}, Color:{Color} , Number of Wheels: {WheelsNumber}";
 
-        /*public static implicit operator Vehicle(Motorcycle v)
-        {
-            throw new NotImplementedException();
-        }*/
     }
 
 }

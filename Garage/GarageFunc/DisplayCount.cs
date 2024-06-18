@@ -33,7 +33,7 @@
                     if (_spots[row, col] == null)
                     {
                         // Empty spot with green background
-                        Console.BackgroundColor = (isFull) ? ConsoleColor.Red : ConsoleColor.Green;
+                        Console.BackgroundColor = (isFull) ? ConsoleColor.Red : ConsoleColor.DarkGray;
                         Console.Write("||");
                     }
                     else

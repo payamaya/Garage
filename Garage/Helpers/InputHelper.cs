@@ -121,18 +121,37 @@ namespace Garage.Helpers
                 Console.WriteLine("Invalid number of engines. Please enter a valid number.");
             }
         }
-        public static int GetCylinderVolume()
+        public static double GetCylinderVolume()
         {
             while (true)
             {
-                Console.Write("Enter cylinder volume: ");
-                if (int.TryParse(Console.ReadLine(), out int cylinderVolume))
+                try
                 {
-                    return cylinderVolume;
+                    Console.WriteLine("Calculate Cylinder Volume");
+
+                    Console.Write("Enter Height of Cylinder: ");
+                    double height = Convert.ToDouble(Console.ReadLine());
+
+                    Console.Write("Enter Radius of Cylinder: ");
+                    double radius = Convert.ToDouble(Console.ReadLine());
+
+                    double volume = CalculateVolume(height, radius);
+
+                    Console.WriteLine($"Volume of cylinder: {volume}");
+                    return volume;
                 }
-                Console.WriteLine("Invalid cylinder volume. Please enter a valid volume.");
+                catch (FormatException)
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid number.");
+                }
+            }
+
+            static double CalculateVolume(double height, double radius)
+            {
+                return Math.Round(Math.PI * (radius * radius) * height,3);
             }
         }
+
         public static int GetRow()
         {
             while (true)
@@ -157,5 +176,23 @@ namespace Garage.Helpers
                 Console.WriteLine("Invalid column number. Please enter a valid number.");
             }
         }
+  /*      public static void VolumeOfCylinder()
+        {
+            Console.WriteLine("Calculate Cylinder valume");
+
+            Console.Write("Enter Height of Cylinder");
+            double Height = Convert.ToDouble(Console.ReadLine());
+            Console.Write("Enter Radius of Cylinder");
+            double Radius = Convert.ToDouble(Console.ReadLine());
+            double Volume = CalculateVolume(Height, Radius);
+
+            Console.WriteLine($"Volume of cylinder: {Volume}");
+            Console.ReadKey();
+
+            static double CalculateVolume(double Height, double Radius)
+            {
+                return Math.PI * (Radius * Radius) * Height;
+            }
+        }*/
     }
 }

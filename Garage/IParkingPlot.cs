@@ -1,9 +1,9 @@
-﻿namespace Garage
+﻿namespace Garage.Interface
 {
-    public interface IParkingPlot
+    public interface IParkingGarage<T>
     {
-        int TotalSpots { get; }
-
         void DisplayParkingLot();
+        int CountVehicles();
+        List<T> GetVehiclesByColor(string color);
     }
 }
