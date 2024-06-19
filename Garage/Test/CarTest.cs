@@ -3,7 +3,7 @@ using Garage.Models; // Import the namespace where Car is defined
 
 namespace Helpers.Tests
 {
-    public class CarTests
+    public class CarTest
     {
         [Fact]
         public void Car_Constructor_ShouldInitializeProperties()

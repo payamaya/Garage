@@ -10,7 +10,7 @@ namespace Garage.Helpers
             int totalSpots = garage.TotalSpots;
             int numberOfVehicles = garage.CountVehicles();
             int remainingSpots = totalSpots - numberOfVehicles;
-            Console.WriteLine($"Remaining spots in the parking: {remainingSpots}");
+            Console.WriteLine($"Remaining spots in the parking: \u001b[31m{remainingSpots}\u001b[0m");
         }
     }
 }

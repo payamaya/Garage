@@ -121,34 +121,37 @@ namespace Garage.Helpers
                 Console.WriteLine("Invalid number of engines. Please enter a valid number.");
             }
         }
-        public static double GetCylinderVolume()
+        public class CylinderCalculater
         {
-            while (true)
+            public static double GetCylinderVolume()
             {
-                try
+                while (true)
                 {
-                    Console.WriteLine("Calculate Cylinder Volume");
+                    try
+                    {
+                        Console.WriteLine("Calculate Cylinder Volume");
 
-                    Console.Write("Enter Height of Cylinder: ");
-                    double height = Convert.ToDouble(Console.ReadLine());
+                        Console.Write("Enter Height of Cylinder: ");
+                        double height = Convert.ToDouble(Console.ReadLine());
 
-                    Console.Write("Enter Radius of Cylinder: ");
-                    double radius = Convert.ToDouble(Console.ReadLine());
+                        Console.Write("Enter Radius of Cylinder: ");
+                        double radius = Convert.ToDouble(Console.ReadLine());
 
-                    double volume = CalculateVolume(height, radius);
+                        double volume = CalculateVolume(height, radius);
 
-                    Console.WriteLine($"Volume of cylinder: {volume}");
-                    return volume;
+                        Console.WriteLine($"Volume of cylinder: {volume}");
+                        return volume;
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Invalid input. Please enter a valid number.");
+                    }
                 }
-                catch (FormatException)
-                {
-                    Console.WriteLine("Invalid input. Please enter a valid number.");
-                }
+
             }
-
-            static double CalculateVolume(double height, double radius)
+            public static double CalculateVolume(double height, double radius)
             {
-                return Math.Round(Math.PI * (radius * radius) * height,3);
+                return Math.Round(Math.PI * (radius * radius) * height, 3);
             }
         }
 
@@ -176,23 +179,23 @@ namespace Garage.Helpers
                 Console.WriteLine("Invalid column number. Please enter a valid number.");
             }
         }
-  /*      public static void VolumeOfCylinder()
-        {
-            Console.WriteLine("Calculate Cylinder valume");
+        /*      public static void VolumeOfCylinder()
+              {
+                  Console.WriteLine("Calculate Cylinder valume");
 
-            Console.Write("Enter Height of Cylinder");
-            double Height = Convert.ToDouble(Console.ReadLine());
-            Console.Write("Enter Radius of Cylinder");
-            double Radius = Convert.ToDouble(Console.ReadLine());
-            double Volume = CalculateVolume(Height, Radius);
+                  Console.Write("Enter Height of Cylinder");
+                  double Height = Convert.ToDouble(Console.ReadLine());
+                  Console.Write("Enter Radius of Cylinder");
+                  double Radius = Convert.ToDouble(Console.ReadLine());
+                  double Volume = CalculateVolume(Height, Radius);
 
-            Console.WriteLine($"Volume of cylinder: {Volume}");
-            Console.ReadKey();
+                  Console.WriteLine($"Volume of cylinder: {Volume}");
+                  Console.ReadKey();
 
-            static double CalculateVolume(double Height, double Radius)
-            {
-                return Math.PI * (Radius * Radius) * Height;
-            }
-        }*/
+                  static double CalculateVolume(double Height, double Radius)
+                  {
+                      return Math.PI * (Radius * Radius) * Height;
+                  }
+              }*/
     }
 }

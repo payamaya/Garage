@@ -43,7 +43,7 @@ namespace Garage.Helpers
                     break;
 
                 case VehicleType.Motorcycle:
-                  double cylinderVolume= InputHelper.GetCylinderVolume();  
+                  double cylinderVolume= InputHelper.CylinderCalculater.GetCylinderVolume();  
                     newVehicle = new Motorcycle(numberOfWheels, color, regNumber, cylinderVolume);
                     break;
                 default:
