@@ -13,7 +13,7 @@ namespace Garage.Helpers
 
             //Check if user enter a string color
 
-          string color =  InputHelper.GetColor();
+            string color = InputHelper.GetColor();
             int numberOfWheels = InputHelper.GetNumberOfWheels();
 
             VehicleType vehicleType = InputHelper.GetVehicleType();
@@ -33,17 +33,17 @@ namespace Garage.Helpers
                     break;
 
                 case VehicleType.Boat:
-                 int boatLength = InputHelper.GetBoatLength();
+                    int boatLength = InputHelper.GetBoatLength();
                     newVehicle = new Boat(numberOfWheels, color, regNumber, boatLength);
                     break;
 
                 case VehicleType.Airplane:
-                int numOfEngines = InputHelper.GetNumberOfEngines();
+                    int numOfEngines = InputHelper.GetNumberOfEngines();
                     newVehicle = new Airplane(numberOfWheels, color, regNumber, numOfEngines);
                     break;
 
                 case VehicleType.Motorcycle:
-                  double cylinderVolume= InputHelper.CylinderCalculater.GetCylinderVolume();  
+                    double cylinderVolume = InputHelper.CylinderCalculater.GetCylinderVolume();
                     newVehicle = new Motorcycle(numberOfWheels, color, regNumber, cylinderVolume);
                     break;
                 default:
@@ -52,11 +52,11 @@ namespace Garage.Helpers
             }
 
             // Prompt user for row number until a valid number is entered
-    
+
             //int col = InputHelper.GetColumn();
-             // Prompt user for row number until a valid number is entered
+            // Prompt user for row number until a valid number is entered
             int row = InputHelper.GetRow();
-            
+
             // Prompt user for column number until a valid number is entered
             int col = InputHelper.GetColumn();
 
@@ -70,6 +70,6 @@ namespace Garage.Helpers
                 Console.WriteLine("Parking spot is already occupied or invalid.");
             }
         }
-       
+
     }
 }

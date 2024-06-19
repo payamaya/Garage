@@ -13,21 +13,18 @@ namespace Garage.Helpers
                 return;
             }
 
-            while (true)
-            {
-                Console.Write("Enter registration number: ");
-                string regNumber = Console.ReadLine()?.Trim().ToUpper()!;
+            string prompt = "Enter registration number (or type 'back' to return to the main menu): ";
+            string errorMessage = "No vehicle with that registration number found in the parking lot.";
 
-                if (garage.RemoveVehicle(regNumber))
+            InputHelper.GetInputWithRetry(prompt, errorMessage, (input) =>
+            {
+                if (garage.RemoveVehicle(input))
                 {
-                    Console.WriteLine($"Successfully removed the vehicle with the registration number: {regNumber}");
-                    break;
+                    Console.WriteLine($"Successfully removed the vehicle with the registration number: \u001b[33m{input}\u001b[0m");
+                    return true;
                 }
-                else
-                {
-                    Console.WriteLine("No vehicle with that registration number found in the parking lot");
-                }
-            }
+                return false;
+            });
 
         }
     }

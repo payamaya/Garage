@@ -1,5 +1,4 @@
-﻿// Garage.Enumerator.cs (Partial Class)
-
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -9,7 +8,13 @@ namespace Garage
     {
         public IEnumerator<T> GetEnumerator()
         {
-            return _vehicles.GetEnumerator();
+            foreach (T vehicle in _spots)
+            {
+                if (vehicle != null)
+                {
+                    yield return vehicle;
+                }
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()

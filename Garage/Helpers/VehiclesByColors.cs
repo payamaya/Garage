@@ -51,7 +51,7 @@ namespace Garage.Helpers
                 }
                 else
                 {
-                    Console.WriteLine($"No vehicles found with color '{color}'.");
+                    Console.WriteLine($"No vehicles found with color '{color}'. ");
                 }
             }
         }

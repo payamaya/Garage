@@ -1,16 +1,10 @@
 ﻿using Garage.Models;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Garage
 {
-    public partial  class Garage<T>
+    public partial class Garage<T>
     {
-      
+        private List<T> _vehicle = new List<T>();
         public bool AddVehicleToSpot(T vehicle, int row, int col)
         {
             if (row < 0 || row >= _spots.GetLength(0) || col < 0 || col >= _spots.GetLength(1))
@@ -60,7 +54,7 @@ namespace Garage
                 Console.WriteLine($"Parking spot at [{row},{col}] is already occupied.");
                 return false;
             }
-            // Special handling for Bus
+         /*   // Special handling for Bus
             if (vehicle is Bus)
             {
                 // Check horizontally if there's enough space for the Bus
@@ -75,20 +69,20 @@ namespace Garage
                 _spots[row, col + 1] = vehicle;
 
                 Console.WriteLine($"Successfully parked the Bus horizontally at [{row},{col}] and [{row},{col + 1}].");
-            }
-            else
+            }*/
+         /*   else
             {
                 // For other vehicles, occupy just one spot
                 _spots[row, col] = vehicle;
-            }
+            }*/
             // Assign the vehicle to the parking spot(s)
-            _spots[row, col] = vehicle;
-            if (vehicle is Bus)
+          /*  if (vehicle is Bus)
             {
                 _spots[row, col + 1] = vehicle; // Occupy the next spot for the Bus
-            }
+            }*/
             // Assign the vehicle to the parking spot
             _spots[row, col] = vehicle;
+            _vehicles.Add(vehicle);
             return true;
         }
 
@@ -115,7 +109,6 @@ namespace Garage
                 return false;
             }
         }
-
 
         public bool RemoveVehicle(string regNumber)
         {
@@ -151,8 +144,6 @@ namespace Garage
             return false;
         }
 
-       
-
         private string GetVehicleEmoji(T vehicle)
         {
             return vehicle switch
@@ -172,6 +163,15 @@ namespace Garage
                 Motorcycle motorcycle => "🏍️",
                 _ => "🚗" // Default emoji if the vehicle type is not recognized
             };
+        }
+        public List<T> GetVehiclesByWheelsNumber(int wheelNumber)
+        {
+            return _vehicles.Where(v => v.WheelsNumber == wheelNumber).ToList();
+        }
+
+        public bool IsEmpty()
+        {
+            return !_vehicles.Any();
         }
 
     }

@@ -7,7 +7,7 @@ namespace Garage.Helpers
         public static void TotalParkedVehicles(Garage<Vehicle> garage)
         {
             int numberOfVehicles = garage.CountVehicles();
-            Console.WriteLine($"Number of vehicles parked: {numberOfVehicles}");
+            Console.WriteLine($"Number of vehicles parked: \u001b[31m{numberOfVehicles}\u001b[0m");
         }
     }
 }

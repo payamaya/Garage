@@ -5,7 +5,7 @@
     {
         public int NumberOfSeats { get; set; }
 
-        public Bus(int wheelsNumber, string color, string registrationNumber, int numberOfSeats) : base(wheelsNumber, color, registrationNumber,VehicleType.Bus)
+        public Bus(int wheelNumber, string color, string registrationNumber, int numberOfSeats) : base(wheelNumber, color, registrationNumber,VehicleType.Bus)
         {
             NumberOfSeats = numberOfSeats;
         }

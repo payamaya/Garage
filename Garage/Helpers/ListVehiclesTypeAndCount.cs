@@ -23,7 +23,8 @@ namespace Garage.Helpers
             Console.WriteLine("Vehicle Types and Counts:");
             foreach (var kvp in vehicleCounts)
             {
-                Console.WriteLine($"{kvp.Key}: {kvp.Value}");
+                Console.WriteLine($"{kvp.Key}: {kvp.Value} ");
+              
             }
         }
 

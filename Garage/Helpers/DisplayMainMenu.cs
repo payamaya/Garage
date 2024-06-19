@@ -13,10 +13,10 @@ namespace Garage.Helpers
             "5.) Remove Vehicle From ParkingLot\n" +
             "6.) Total Vehicle Parked 'Lista samtliga parkerade fordon'\n" +
             "7.) Remained ParkingSpot\n" +
-            "8.) Find Vehicle via registreringsnumret.'\n" +
+            "8.) Find Vehicle via registration number.'\n" +
             "9.) List Vehicles Sorted by Color\n" +
             "10.) List vehicle types and how many of each are in the garage\n" +
-
+            "11.) List vehicle types by number of wheels\n" +
             "0.) Exit\n";
 
         public static void DisplayMenu(Garage<Vehicle> garage)
@@ -40,7 +40,7 @@ namespace Garage.Helpers
                         garage.DisplayParkingLot();
                         break;
                     case "4":
-                       AddVehiclesToParkingLot.AddVehicleToParkingLot(garage);
+                        AddVehiclesToParkingLot.AddVehicleToParkingLot(garage);
                         break;
                     case "5":
                         RemoveVehicles.RemoveVehicleFromParkingLot(garage);
@@ -52,13 +52,16 @@ namespace Garage.Helpers
                         RemianingVehicles.RemainedParkingSpots(garage);
                         break;
                     case "8":
-                        FindVehicles.FindVehicleByRegistrationNumber(garage);
+                        FindByReg.FindVehicleByRegistrationNumber(garage);
                         break;
                     case "9":
                         VehiclesByColors.ListVehiclesByColor(garage);
                         break;
                     case "10":
                         ListVehiclesTypeAndCount.ListVehicleTypesAndCounts(garage);
+                        break;
+                    case "11":
+                        FindByWheelsNumber.FindVehiclesByWheelsNumber(garage);
                         break;
                     case "0":
                         Console.WriteLine("Exiting program...");

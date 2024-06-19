@@ -9,13 +9,13 @@
         Airplane,
         Motorcycle
     }
-    public abstract class Vehicle
+    public  class Vehicle
     {
         // properties
         public VehicleType Type { get; set; }
         public int WheelsNumber { get; set; }
         public string? Color { get; set; }
-        public string? RegistrationNumber { get; set; }
+        public string RegistrationNumber { get; set; }
         //Methods
         public Vehicle(int wheelNumber, string color, string registrationNumber, VehicleType type)
         {

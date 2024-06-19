@@ -1,14 +1,9 @@
 ﻿using Garage.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Garage.Helpers
 {
-    internal class InputHelper
+    internal partial class InputHelper
     {
 
         public static string GetRegistrationNumber(Garage<Vehicle> garage)
@@ -121,39 +116,6 @@ namespace Garage.Helpers
                 Console.WriteLine("Invalid number of engines. Please enter a valid number.");
             }
         }
-        public class CylinderCalculater
-        {
-            public static double GetCylinderVolume()
-            {
-                while (true)
-                {
-                    try
-                    {
-                        Console.WriteLine("Calculate Cylinder Volume");
-
-                        Console.Write("Enter Height of Cylinder: ");
-                        double height = Convert.ToDouble(Console.ReadLine());
-
-                        Console.Write("Enter Radius of Cylinder: ");
-                        double radius = Convert.ToDouble(Console.ReadLine());
-
-                        double volume = CalculateVolume(height, radius);
-
-                        Console.WriteLine($"Volume of cylinder: {volume}");
-                        return volume;
-                    }
-                    catch (FormatException)
-                    {
-                        Console.WriteLine("Invalid input. Please enter a valid number.");
-                    }
-                }
-
-            }
-            public static double CalculateVolume(double height, double radius)
-            {
-                return Math.Round(Math.PI * (radius * radius) * height, 3);
-            }
-        }
 
         public static int GetRow()
         {
@@ -179,23 +141,46 @@ namespace Garage.Helpers
                 Console.WriteLine("Invalid column number. Please enter a valid number.");
             }
         }
-        /*      public static void VolumeOfCylinder()
-              {
-                  Console.WriteLine("Calculate Cylinder valume");
+        public static string GetInputWithRetry(string prompt, string errorMessage, Func<string, bool> action)
+        {
+            while (true)
+            {
+                Console.Write(prompt);
+                string input = Console.ReadLine()?.Trim().ToUpper()!;
 
-                  Console.Write("Enter Height of Cylinder");
-                  double Height = Convert.ToDouble(Console.ReadLine());
-                  Console.Write("Enter Radius of Cylinder");
-                  double Radius = Convert.ToDouble(Console.ReadLine());
-                  double Volume = CalculateVolume(Height, Radius);
+                if (input.Equals("BACK", StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.WriteLine("Returning to the main menu...");
+                    return "BACK";
+                }
 
-                  Console.WriteLine($"Volume of cylinder: {Volume}");
-                  Console.ReadKey();
+                if (action(input))
+                {
+                    return input;
+                }
 
-                  static double CalculateVolume(double Height, double Radius)
-                  {
-                      return Math.PI * (Radius * Radius) * Height;
-                  }
-              }*/
+                Console.WriteLine(errorMessage);
+                while (true)
+                {
+                    Console.Write("Would you like to try again or go back to the main menu? (Type 'try' to try again or 'back' to return to the main menu): ");
+                    string choice = Console.ReadLine()?.Trim().ToUpper()!;
+
+                    if (choice.Equals("BACK", StringComparison.OrdinalIgnoreCase))
+                    {
+                        Console.WriteLine("Returning to the main menu...");
+                        return "BACK";
+                    }
+                    else if (choice.Equals("TRY", StringComparison.OrdinalIgnoreCase))
+                    {
+                        break; // Break inner loop and prompt for input again
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid option. Please enter 'try' to try again or 'back' to return to the main menu.");
+                    }
+                }
+
+            }
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Garage
+﻿using Garage.Models;
+
+namespace Garage
 {
     public partial class Garage<T>
     {
@@ -89,5 +91,6 @@
             }
             return vehicles;
         }
+     
     }
 }
