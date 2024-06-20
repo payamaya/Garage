@@ -51,8 +51,8 @@ This project is a simple Garage Management System that allows you to manage park
 To run the application, use the following command:
 ```bash
 dotnet run --project Garage
-
+````
 ## Author
 https://github.com/payamaya
 ## License
-[MIT license](LICENSE)
+[MIT License](LICENSE)
