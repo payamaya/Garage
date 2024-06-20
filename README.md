@@ -55,4 +55,4 @@ dotnet run --project Garage
 ## Author
 https://github.com/payamaya
 ## License
-[MIT License](LICENSE)
+[MIT license](LICENSE)
