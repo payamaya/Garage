@@ -51,6 +51,4 @@ This project is a simple Garage Management System that allows you to manage park
 To run the application, use the following command:
 ```bash
 dotnet run --project Garage
-## License
 
-This project is licensed under the MIT License. See the [2024](Paul) file for details.
