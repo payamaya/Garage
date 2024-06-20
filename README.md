@@ -52,3 +52,7 @@ To run the application, use the following command:
 ```bash
 dotnet run --project Garage
 
+## Author
+https://github.com/payamaya
+## License
+[MIT License](LICENSE)
