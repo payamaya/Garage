@@ -5,6 +5,7 @@ namespace Garage
     public partial class Garage<T>
     {
         private List<T> _vehicle = new List<T>();
+
         public bool AddVehicleToSpot(T vehicle, int row, int col)
         {
             if (row < 0 || row >= _spots.GetLength(0) || col < 0 || col >= _spots.GetLength(1))
@@ -41,73 +42,77 @@ namespace Garage
             int numRows = _spots.GetLength(0);
             int numCols = _spots.GetLength(1);
 
-            // Check if the specified row and column are within the valid range
             if (row < 0 || row >= numRows || col < 0 || col >= numCols)
             {
                 Console.WriteLine($"Invalid parking spot. Row and column numbers must be within valid range (0 - {numRows - 1}, 0 - {numCols - 1}).");
                 return false;
             }
 
-            // Check if the spot is already occupied
             if (_spots[row, col] != null)
             {
                 Console.WriteLine($"Parking spot at [{row},{col}] is already occupied.");
                 return false;
             }
-         /*   // Special handling for Bus
+
+            /* Special handling for Bus
             if (vehicle is Bus)
             {
-                // Check horizontally if there's enough space for the Bus
                 if (col + 1 >= numCols || _spots[row, col + 1] != null)
                 {
                     Console.WriteLine($"Not enough space for the Bus at [{row},{col}].");
                     return false;
                 }
-
-                // Occupy two consecutive spots horizontally
                 _spots[row, col] = vehicle;
                 _spots[row, col + 1] = vehicle;
-
                 Console.WriteLine($"Successfully parked the Bus horizontally at [{row},{col}] and [{row},{col + 1}].");
-            }*/
-         /*   else
+            }
+            else
             {
-                // For other vehicles, occupy just one spot
                 _spots[row, col] = vehicle;
-            }*/
-            // Assign the vehicle to the parking spot(s)
-          /*  if (vehicle is Bus)
+            }
+            if (vehicle is Bus)
             {
-                _spots[row, col + 1] = vehicle; // Occupy the next spot for the Bus
-            }*/
-            // Assign the vehicle to the parking spot
+                _spots[row, col + 1] = vehicle;
+            }
+            */
+
             _spots[row, col] = vehicle;
             _vehicles.Add(vehicle);
             return true;
         }
 
-        public bool ParkedCar(T vehicle, int row, int col)
+
+        /*   public bool ParkedCar(T vehicle, int row, int col)
+           {
+               int numRows = _spots.GetLength(0);
+               int numCols = _spots.GetLength(1);
+
+               if (row < 0 || row >= numRows || col < 0 || col >= numCols)
+               {
+                   Console.WriteLine($"Invalid parking spot. Row and column numbers must be within valid range (0 - {numRows - 1}, 0 - {numCols - 1}).");
+                   return false;
+               }
+
+               // Check if the spot at [row, col] is occupied
+               if (_spots[row, col] != null)
+               {
+                   Console.WriteLine($"Parking spot at [{row},{col}] is occupied.");
+                   return true;
+               }
+               else
+               {
+                   Console.WriteLine($"Parking spot at [{row},{col}] is vacant.");
+                   return false;
+               }
+           }*/
+        public bool IsSpotOccupied(T vehicle, int row, int col)
         {
-            int numRows = _spots.GetLength(0);
-            int numCols = _spots.GetLength(1);
-
-            if (row < 0 || row >= numRows || col < 0 || col >= numCols)
+            if (row < 0 || row >= _spots.GetLength(0) || col < 0 || col >= _spots.GetLength(1))
             {
-                Console.WriteLine($"Invalid parking spot. Row and column numbers must be within valid range (0 - {numRows - 1}, 0 - {numCols - 1}).");
-                return false;
+                throw new ArgumentOutOfRangeException($"Row and column numbers must be within valid range (0 - {_spots.GetLength(0) - 1}, 0 - {_spots.GetLength(1) - 1}).");
             }
 
-            // Check if the spot at [row, col] is occupied
-            if (_spots[row, col] != null)
-            {
-                Console.WriteLine($"Parking spot at [{row},{col}] is occupied.");
-                return true;
-            }
-            else
-            {
-                Console.WriteLine($"Parking spot at [{row},{col}] is vacant.");
-                return false;
-            }
+            return _spots[row, col] != null;
         }
 
         public bool RemoveVehicle(string regNumber)

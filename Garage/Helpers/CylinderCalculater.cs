@@ -32,7 +32,7 @@
             }
             public static double CalculateVolume(double height, double radius)
             {
-                return Math.Round(Math.PI * (radius * radius) * height, 3);
+                return Math.Round(Math.PI * Math.Pow(radius,2) * height, 3);
             }
         }
 

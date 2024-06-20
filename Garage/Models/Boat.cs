@@ -8,7 +8,7 @@
         {
             BoatLength = boatLength;
         }
-        public override string ToString() => $"Boat - {base.ToString()}, BoatLenght {BoatLength}";
+        public override string ToString() => $"Boat - {base.ToString()}, BoatLenght {BoatLength} cm";
 
     }
 }
