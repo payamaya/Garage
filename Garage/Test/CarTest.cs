@@ -1,5 +1,6 @@
 ﻿using Xunit;
-using Garage.Models; // Import the namespace where Car is defined
+using Garage.Models;
+using Garage.Enums; // Import the namespace where Car is defined
 
 namespace Helpers.Tests
 {

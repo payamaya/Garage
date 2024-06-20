@@ -1,11 +1,12 @@
-﻿using Garage.Models;
+﻿using Garage.Interface;
+using Garage.Models;
 
 namespace Garage.Helpers
 {
     internal static class RemoveVehicles
     {
 
-        public static void RemoveVehicleFromParkingLot(Garage<Vehicle> garage)
+        public static void RemoveVehicleFromParkingLot(Garage<IVehicle> garage)
         {
             if (garage.CountVehicles() == 0)
             {

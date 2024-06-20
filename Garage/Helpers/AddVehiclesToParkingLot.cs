@@ -1,11 +1,13 @@
-﻿using Garage.Models;
+﻿using Garage.Enums;
+using Garage.Interface;
+using Garage.Models;
 
 namespace Garage.Helpers
 {
     internal static class AddVehiclesToParkingLot
     {
 
-        public static void AddVehicleToParkingLot(Garage<Vehicle> garage)
+        public static void AddVehicleToParkingLot(Garage<IVehicle> garage)
         {
             //check if user enter a valid regex regnumber
 
@@ -18,7 +20,7 @@ namespace Garage.Helpers
 
             VehicleType vehicleType = InputHelper.GetVehicleType();
 
-            Vehicle newVehicle;
+            IVehicle newVehicle;
             switch (vehicleType)
             {
                 case VehicleType.Car:

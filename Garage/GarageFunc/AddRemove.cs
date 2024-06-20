@@ -38,6 +38,13 @@ namespace Garage
                 Console.WriteLine("A vehicle with this registration number already exists in the parking lot.");
                 return false;
             }
+            /*
+             if(IsFull){
+            return false;
+            int firstEmpty =system.Array.IndexOf(spaces,null);
+            current ++;
+
+             */
 
             int numRows = _spots.GetLength(0);
             int numCols = _spots.GetLength(1);
@@ -123,9 +130,11 @@ namespace Garage
             {
                 for (int col = 0; col < _spots.GetLength(1); col++)
                 {
-                    if (_spots[row, col] is not null && _spots[row, col]?.RegistrationNumber?.ToUpper() == normalizedRegNumber)
+                    if (_spots[row, col] is not null && _spots[row, col].RegistrationNumber?.ToUpper() == normalizedRegNumber)
                     {
-                        _spots[row, col] = null!;
+                        // Remove from the spots array
+                        _vehicles.Remove(_spots[row, col]);
+                        _spots[row, col] = default;
                         return true;
                     }
                 }
@@ -172,12 +181,17 @@ namespace Garage
         public List<T> GetVehiclesByWheelsNumber(int wheelNumber)
         {
             return _vehicles.Where(v => v.WheelsNumber == wheelNumber).ToList();
+            /*   return _vehicles.FirstOrDefault(v => v.WheelsNumber == wheelNumber).ToList();*/
         }
 
         public bool IsEmpty()
         {
             return !_vehicles.Any();
         }
-
+        /*
+         * If Garage is full
+         *In Addvehicle check if isfull
+         * public bool IsFull => current >= capacity;
+         */
     }
 }

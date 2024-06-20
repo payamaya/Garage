@@ -2,7 +2,7 @@
 
 namespace Garage.Interface
 {
-    public interface IGarage<T> where T : Vehicle
+    public interface IGarage<T> where T : IVehicle
     {
         int TotalSpots { get; }
 

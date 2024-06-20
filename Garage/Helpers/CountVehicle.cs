@@ -1,10 +1,11 @@
 ﻿using Garage;
+using Garage.Interface;
 using Garage.Models;
 
 internal static class CountVehicle
 {
 
-    public static void CountNumberOfVehicles(Garage<Vehicle> garage)
+    public static void CountNumberOfVehicles(Garage<IVehicle> garage)
     {
         int numberOfVehicles = garage.CountVehicles();
         /* if(garage.CountVehicles() ==0)

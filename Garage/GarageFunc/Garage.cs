@@ -4,7 +4,7 @@ using Garage.Models;
 namespace Garage
 {
     // We implement interface and inherit baseClass(from object)
-    public partial class Garage<T> : IGarage<T>, IEnumerable<T> where T : Vehicle
+    public partial class Garage<T> where T : IVehicle
     {
         //Create a parking lot with 2 dimension array[,]
         private T[,] _spots;

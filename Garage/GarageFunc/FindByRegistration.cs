@@ -1,4 +1,6 @@
-﻿namespace Garage
+﻿using Garage.Interface;
+
+namespace Garage
 {
     public partial class Garage<T>
     {
@@ -20,7 +22,7 @@
                     }
                 }
             }
-            return null;
+            return default;
         }    
  
     }

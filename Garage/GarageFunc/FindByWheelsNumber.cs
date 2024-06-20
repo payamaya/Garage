@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using Garage.Interface;
 using Garage.Models;
 
 namespace Garage.Helpers
 {
     public static class FindByWheelsNumber
     {
-        public static void FindVehiclesByWheelsNumber(Garage<Vehicle> garage)
+        public static void FindVehiclesByWheelsNumber(Garage<IVehicle> garage)
         {
             while (true)
             {
                 Console.Write("Enter the number of wheels to search for: ");
                 if (int.TryParse(Console.ReadLine(), out int wheelNumber))
                 {
-                    List<Vehicle> vehicles = garage.GetVehiclesByWheelsNumber(wheelNumber);
+                    List<IVehicle> vehicles = garage.GetVehiclesByWheelsNumber(wheelNumber);
 
                     if (vehicles.Count > 0)
                     {

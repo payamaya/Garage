@@ -1,10 +1,12 @@
-﻿using Garage.Models;
+﻿using Garage.Enums;
+using Garage.Interface;
+using Garage.Models;
 
 namespace Garage.Helpers
 {
     public static class ListVehiclesTypeAndCount
     {
-        public static void ListVehicleTypesAndCounts(Garage<Vehicle> garage)
+        public static void ListVehicleTypesAndCounts(Garage<IVehicle> garage)
         {
             var vehicleCounts = new Dictionary<VehicleType, int>();
 

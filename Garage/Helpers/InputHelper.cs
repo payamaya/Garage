@@ -1,4 +1,6 @@
-﻿using Garage.Models;
+﻿using Garage.Enums;
+using Garage.Interface;
+using Garage.Models;
 using System.Text.RegularExpressions;
 
 namespace Garage.Helpers
@@ -6,7 +8,7 @@ namespace Garage.Helpers
     internal partial class InputHelper
     {
 
-        public static string GetRegistrationNumber(Garage<Vehicle> garage)
+        public static string GetRegistrationNumber(Garage<IVehicle> garage)
         {
             while (true)
             {

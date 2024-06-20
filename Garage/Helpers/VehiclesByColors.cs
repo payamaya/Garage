@@ -1,11 +1,12 @@
-﻿using Garage.Models;
+﻿using Garage.Interface;
+using Garage.Models;
 
 namespace Garage.Helpers
 {
     internal static class VehiclesByColors
     {
 
-        public static void ListVehiclesByColor(Garage<Vehicle> garage)
+        public static void ListVehiclesByColor(Garage<IVehicle> garage)
         {
             var colorMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
@@ -38,7 +39,7 @@ namespace Garage.Helpers
                     continue;
                 }
 
-                List<Vehicle> vehicles = garage.GetVehiclesByColor(color);
+                List<IVehicle> vehicles = garage.GetVehiclesByColor(color);
 
                 if (vehicles.Count > 0)
                 {

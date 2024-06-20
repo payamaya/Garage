@@ -1,5 +1,6 @@
 ﻿using Garage.Helpers;
 using Garage.Interface;
+using Garage.Menu;
 using Garage.Models;
 
 
@@ -15,7 +16,7 @@ namespace Garage
 
                 (int maxRows, int maxCols) = inputHandler.GetValidGarageDimensions();
 
-                var garage = new Garage<Vehicle>(maxRows, maxCols);
+                var garage = new Garage<IVehicle>(maxRows, maxCols);
                 DisplayMainMenu.DisplayMenu(garage);
                 Console.ReadLine();
             }

@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Models\Car.cs">
+    <Compile Update="Entities\Car.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Update="Test\GetCylinderVolumeTest.cs">

@@ -1,16 +1,8 @@
-﻿using Garage.Interface;
+﻿using Garage.Enums;
+using Garage.Interface;
 
 namespace Garage.Models
 {
-    //Base Class
-    public enum VehicleType
-    {
-        Car,
-        Bus,
-        Boat,
-        Airplane,
-        Motorcycle
-    }
     public  class Vehicle: IVehicle
     {
         // properties

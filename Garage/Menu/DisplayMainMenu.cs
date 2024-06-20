@@ -1,7 +1,9 @@
-﻿using Garage.Helprs;
+﻿using Garage.Helpers;
+using Garage.Helprs;
+using Garage.Interface;
 using Garage.Models;
 
-namespace Garage.Helpers
+namespace Garage.Menu
 {
     public static class DisplayMainMenu
     {
@@ -19,7 +21,7 @@ namespace Garage.Helpers
             "11.) List vehicle types by number of wheels\n" +
             "0.) Exit\n";
 
-        public static void DisplayMenu(Garage<Vehicle> garage)
+        public static void DisplayMenu(Garage<IVehicle> garage)
         {
             while (true)
             {
@@ -31,7 +33,7 @@ namespace Garage.Helpers
                 switch (input)
                 {
                     case "1":
-                        GetSpecifiCarInfo.GetSpecificParkingSpotInfo(garage);
+                        GetSpecificCarInfo.GetSpecificParkingSpotInfo(garage);
                         break;
                     case "2":
                         CountVehicle.CountNumberOfVehicles(garage);

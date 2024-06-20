@@ -1,11 +1,12 @@
 ﻿using Garage.Helpers;
+using Garage.Interface;
 using Garage.Models;
 
 namespace Garage.Helprs
 {
     internal static class FindByReg
     {
-        public static void FindVehicleByRegistrationNumber(Garage<Vehicle> garage)
+        public static void FindVehicleByRegistrationNumber(Garage<IVehicle> garage)
         {
             if (garage.CountVehicles() == 0)
             {
@@ -18,7 +19,7 @@ namespace Garage.Helprs
 
             InputHelper.GetInputWithRetry(prompt, errorMessage, (input) =>
             {
-                Vehicle? foundVehicle = garage.FindVehicleByRegistrationNumber(input);
+                IVehicle? foundVehicle = garage.FindVehicleByRegistrationNumber(input);
                 if (foundVehicle != null)
                 {
                     Console.WriteLine($"\u001b[34mVehicle found:\u001b[0m {foundVehicle}");

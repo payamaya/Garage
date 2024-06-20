@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Garage
 {
-    public partial class Garage<T>
+    public partial class Garage<T>:IEnumerable<T>
     {
         public IEnumerator<T> GetEnumerator()
         {

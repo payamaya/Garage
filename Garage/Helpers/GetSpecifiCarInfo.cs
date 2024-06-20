@@ -1,25 +1,27 @@
 ﻿using Garage;
+using Garage.Interface;
 using Garage.Models;
+using System;
 
-internal static class GetSpecifiCarInfo
+internal static class GetSpecificCarInfo
 {
-
-    public static void GetSpecificParkingSpotInfo(Garage<Vehicle> garage)
+    public static void GetSpecificParkingSpotInfo(Garage<IVehicle> garage)
     {
-        Console.WriteLine("Enter row Number");
+        Console.Write("Enter row Number: ");
         if (!int.TryParse(Console.ReadLine(), out int row))
         {
-            Console.WriteLine("Invalid input. Please enter a valid plate number");
-            return;
-        }
-        Console.WriteLine("Enter column Number");
-        if (!int.TryParse(Console.ReadLine(), out int col))
-        {
-            Console.WriteLine("Invalid input. Please enter a valid plate number");
+            Console.WriteLine("Invalid input. Please enter a valid number.");
             return;
         }
 
-        Vehicle parkedVehicle = garage.GetCar(row, col);
+        Console.Write("Enter column Number: ");
+        if (!int.TryParse(Console.ReadLine(), out int col))
+        {
+            Console.WriteLine("Invalid input. Please enter a valid number.");
+            return;
+        }
+
+        IVehicle parkedVehicle = garage.GetCar(row, col);
         if (parkedVehicle != null)
         {
             Console.WriteLine($"Vehicle parked at spot [{row},{col}]: {parkedVehicle}");

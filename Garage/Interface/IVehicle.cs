@@ -1,4 +1,4 @@
-﻿using Garage.Models;
+﻿using Garage.Enums;
 
 namespace Garage.Interface
 {
